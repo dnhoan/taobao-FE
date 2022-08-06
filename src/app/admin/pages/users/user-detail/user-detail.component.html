@@ -1,0 +1,171 @@
+<button nz-button [nzType]="'primary'" (click)="showModalAddUser()">
+  <span *ngIf="!userEdit">Them</span>
+  <i nz-icon nzType="edit" nzTheme="outline" *ngIf="userEdit"></i>
+</button>
+<nz-modal
+  [(nzVisible)]="isVisibleModalAddUser"
+  nzTitle="Them nguoi dung"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <form nz-form (ngSubmit)="submitForm()" [formGroup]="formUser">
+      <div>
+        <label for="fullname">Họ và tên</label>
+        <input
+          nz-input
+          type="text"
+          formControlName="fullname"
+          [nzStatus]="
+            formUser.get('fullname')?.invalid &&
+            (formUser.get('fullname')?.dirty ||
+              formUser.get('fullname')?.touched)
+              ? 'error'
+              : ''
+          "
+        />
+        <ng-container
+          *ngIf="
+            formUser.get('fullname') &&
+            formUser.get('fullname')?.invalid &&
+            (formUser.get('fullname')?.dirty ||
+              formUser.get('fullname')?.touched)
+          "
+        >
+          <span
+            *ngIf="formUser.get('fullname')?.errors?.required"
+            nz-typography
+            nzType="danger"
+            >Vui long nhap ho va ten</span
+          >
+          <span
+            *ngIf="formUser.get('fullname')?.errors?.minlength"
+            nz-typography
+            nzType="danger"
+            >Ho va ten toi thieu 6 ky ty</span
+          >
+          <span
+            *ngIf="formUser.get('fullname')?.errors?.maxlength"
+            nz-typography
+            nzType="danger"
+            >Ho va ten toi da 225 ky ty</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="phoneNumber">Số diện thoại</label>
+        <input
+          nz-input
+          type="text"
+          formControlName="phoneNumber"
+          [nzStatus]="
+            formUser.get('phoneNumber')?.invalid &&
+            (formUser.get('phoneNumber')?.dirty ||
+              formUser.get('phoneNumber')?.touched)
+              ? 'error'
+              : ''
+          "
+        />
+        <ng-container
+          *ngIf="
+            formUser.get('phoneNumber') &&
+            formUser.get('phoneNumber')?.invalid &&
+            (formUser.get('phoneNumber')?.dirty ||
+              formUser.get('phoneNumber')?.touched)
+          "
+        >
+          <span
+            *ngIf="formUser.get('phoneNumber')?.errors?.required"
+            nz-typography
+            nzType="danger"
+            >Nhap so dien thoai</span
+          >
+          <span
+            *ngIf="formUser.get('phoneNumber')?.errors?.pattern"
+            nz-typography
+            nzType="danger"
+            >Nhap sai dinh dang so dien thoai</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input nz-input type="email" formControlName="email" />
+        <ng-container
+          *ngIf="
+            formUser.get('email')?.invalid &&
+            (formUser.get('email')?.dirty || formUser.get('email')?.touched)
+          "
+        >
+          <span>{{ formUser.get("email")?.dirty | json }}</span>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="!userEdit">
+        <div>
+          <label for="password">Mat khau</label>
+          <input nz-input type="password" formControlName="password" />
+          <ng-container
+            *ngIf="
+              formUser.get('password')?.invalid &&
+              (formUser.get('password')?.dirty ||
+                formUser.get('password')?.touched)
+            "
+          >
+            <span>{{ formUser.get("password")?.dirty | json }}</span>
+          </ng-container>
+        </div>
+        <!-- <div>
+        <label for="confirmPassword">Xac nhan mat khau</label>
+        <input nz-input type="password" formControlName="confirmPassword" />
+        <ng-container
+          *ngIf="
+            formUser.get('confirmPassword')?.invalid &&
+            (formUser.get('confirmPassword')?.dirty ||
+              formUser.get('confirmPassword')?.touched)
+          "
+        >
+          <span>{{ formUser.get("confirmPassword")?.dirty | json }}</span>
+        </ng-container>
+      </div> -->
+      </ng-container>
+      <div>
+        <label for="address">Dia chi</label>
+        <input nz-input type="text" formControlName="address" />
+        <ng-container
+          *ngIf="
+            formUser.get('address')?.invalid &&
+            (formUser.get('address')?.dirty || formUser.get('address')?.touched)
+          "
+        >
+          <span
+            *ngIf="formUser.get('address')?.errors?.required"
+            nz-typography
+            nzType="danger"
+            >Nhap so dia chi</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="">Gioi tinh</label> <br />
+        <nz-radio-group formControlName="gender" nzName="radiogroup">
+          <label nz-radio [nzValue]="1">Nam</label>
+          <label nz-radio [nzValue]="0">Nu</label>
+        </nz-radio-group>
+      </div>
+      <div>
+        <label for="">Vai tro</label> <br />
+        <nz-select formControlName="role">
+          <nz-option [nzValue]="1" nzLabel="Admin"></nz-option>
+          <nz-option [nzValue]="0" nzLabel="User"></nz-option>
+        </nz-select>
+      </div>
+      <div>
+        <label for="">Trang thai</label> <br />
+        <nz-select formControlName="status">
+          <nz-option nzValue="1" nzLabel="Hoat dong"></nz-option>
+          <nz-option nzValue="0" nzLabel="Khong hoat dong"></nz-option>
+        </nz-select>
+      </div>
+    </form>
+  </ng-container>
+</nz-modal>
