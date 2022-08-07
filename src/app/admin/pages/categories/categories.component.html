@@ -1,1 +1,99 @@
-<p>categories works!</p>
+<button nz-button [nzType]="'primary'" (click)="showModalAddCategory()">
+  <span><i nz-icon nzType="plus" nzTheme="outline"></i></span>
+</button>
+<nz-modal
+  [(nzVisible)]="isVisibleModalCategory"
+  nzTitle="Them danh muc"
+  nzFooter="''"
+  nzClosable="false"
+>
+  <ng-container *nzModalContent>
+    <form
+      class="sign-in-form"
+      novalidate
+      #cateForm="ngForm"
+      (submit)="onSubmit(cateForm)"
+    >
+      <div>
+        <label for="fullname">Ten danh muc</label>
+        <input
+          nz-input
+          type="text"
+          name="category"
+          [(ngModel)]="category.name"
+          required
+          minlength="6"
+          maxlength="225"
+          #name="ngModel"
+          [nzStatus]="
+            name.invalid && (name.dirty || name.touched) ? 'error' : ''
+          "
+        />
+        <ng-container *ngIf="name.touched && !name.valid">
+          <span nz-typography nzType="danger" *ngIf="name.errors?.required"
+            >Vui long nhap ten danh muc</span
+          >
+          <span
+            nz-typography
+            nzType="danger"
+            *ngIf="name.errors?.minlength || name.errors?.maxlength"
+            >Nhap ten danh muc tu 6-225 ky tu</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="">Trang thai</label> <br />
+        <nz-select
+          [(ngModel)]="category.status"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <nz-option [nzValue]="1" nzLabel="Hoat dong"></nz-option>
+          <nz-option [nzValue]="0" nzLabel="Khong hoat dong"></nz-option>
+        </nz-select>
+      </div>
+      <div>
+        <button nz-button [nzType]="'primary'">
+          <span>Save</span>
+        </button>
+      </div>
+    </form>
+  </ng-container>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Đóng</button>
+  </div>
+</nz-modal>
+
+<ng-container *ngIf="categories">
+  <nz-table #basicTable [nzData]="categories">
+    <thead>
+      <tr>
+        <th width="80%">Name</th>
+        <th>Trang thai</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ca of basicTable.data; index as i">
+        <td>{{ ca.name }}</td>
+        <td>{{ ca.status == 1 ? "Active" : "InActive" }}</td>
+        <td>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="showModalEditCategory(ca)"
+          >
+            <i nz-icon nzType="edit" nzTheme="outline"></i>
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            nzDanger
+            (click)="removeCategory(ca.id, i)"
+          >
+            <i nz-icon nzType="delete" nzTheme="outline"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-container>

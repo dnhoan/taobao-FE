@@ -1,1 +1,48 @@
-<p>products works!</p>
+<app-product-detail
+  (newProduct)="addProductToData($event)"
+></app-product-detail>
+<ng-container *ngIf="products">
+  <nz-table #basicTable [nzData]="products" [nzLoading]="isLoading">
+    <thead>
+      <tr>
+        <th>Anh</th>
+        <th>Name</th>
+        <th>Giá</th>
+        <th>Tồn kho</th>
+        <th>Màu sắc</th>
+        <th>Kích thước</th>
+        <th>Danh mục</th>
+        <th>Trạng thái</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of basicTable.data; index as i">
+        <td>
+          <img [src]="baseUrl + '/image/' + product.image" alt="" width="50" />
+        </td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price + " VNĐ" }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.color }}</td>
+        <td>{{ product.size }}</td>
+        <td>{{ product.category.name }}</td>
+        <td>{{ product.status == 1 ? "Active" : "InActive" }}</td>
+        <td>
+          <app-product-detail
+            [productIsEditing]="product"
+            (productEdited)="updateProductToData($event, i)"
+          ></app-product-detail>
+          <!-- <button
+            nz-button
+            nzType="primary"
+            nzDanger
+            (click)="removeProduct(product.id, i)"
+          >
+            <i nz-icon nzType="delete" nzTheme="outline"></i>
+          </button> -->
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-container>

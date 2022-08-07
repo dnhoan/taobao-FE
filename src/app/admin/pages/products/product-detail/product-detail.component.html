@@ -1,0 +1,256 @@
+<button nz-button [nzType]="'primary'" (click)="showModalCreateProduct()">
+  <span *ngIf="!productIsEditing">Thêm</span>
+  <i nz-icon nzType="edit" nzTheme="outline" *ngIf="productIsEditing"></i>
+</button>
+<nz-modal
+  [(nzVisible)]="isVisibleModalCreateProduct"
+  nzTitle="Thêm sản phẩm"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <form nz-form (ngSubmit)="submitForm()" [formGroup]="formProduct">
+      <div>
+        <label for="name">Tên sản phẩm</label>
+        <input
+          nz-input
+          type="text"
+          formControlName="name"
+          [nzStatus]="
+            formProduct.get('name')?.invalid &&
+            (formProduct.get('name')?.dirty || formProduct.get('name')?.touched)
+              ? 'error'
+              : ''
+          "
+        />
+        <ng-container
+          *ngIf="
+            formProduct.get('name') &&
+            formProduct.get('name')?.invalid &&
+            (formProduct.get('name')?.dirty || formProduct.get('name')?.touched)
+          "
+        >
+          <span
+            *ngIf="formProduct.get('name')?.errors?.required"
+            nz-typography
+            nzType="danger"
+            >Vui lòng nhập tên sản phẩm</span
+          >
+          <span
+            *ngIf="
+              formProduct.get('name')?.errors?.minlength ||
+              formProduct.get('name')?.errors?.maxlength
+            "
+            nz-typography
+            nzType="danger"
+            >Tên sản phẩm từ 6-225 ký tự</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="stock">Tồn kho</label> <br />
+        <nz-input-number
+          style="width: 100%"
+          nz-input
+          type="text"
+          formControlName="stock"
+          [nzStatus]="
+            formProduct.get('stock')?.invalid &&
+            (formProduct.get('stock')?.dirty ||
+              formProduct.get('stock')?.touched)
+              ? 'error'
+              : ''
+          "
+          [nzStep]="1"
+        ></nz-input-number>
+        <ng-container
+          *ngIf="
+            formProduct.get('stock') &&
+            formProduct.get('stock')?.invalid &&
+            (formProduct.get('stock')?.dirty ||
+              formProduct.get('stock')?.touched)
+          "
+        >
+          <span
+            *ngIf="formProduct.get('stock')?.errors?.required"
+            nz-typography
+            nzType="danger"
+            >Nhập số lượng tồn kho</span
+          >
+          <span
+            *ngIf="formProduct.get('stock')?.errors?.min"
+            nz-typography
+            nzType="danger"
+            >Số lượng tồn kho tối thiểu 0</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="price">Gá</label> <br />
+        <nz-input-number
+          style="width: 100%"
+          nz-input
+          type="text"
+          formControlName="price"
+          [nzStatus]="
+            formProduct.get('price')?.invalid &&
+            (formProduct.get('price')?.dirty ||
+              formProduct.get('price')?.touched)
+              ? 'error'
+              : ''
+          "
+          [nzStep]="1"
+        ></nz-input-number>
+        <ng-container
+          *ngIf="
+            formProduct.get('price') &&
+            formProduct.get('price')?.invalid &&
+            (formProduct.get('price')?.dirty ||
+              formProduct.get('price')?.touched)
+          "
+        >
+          <span
+            *ngIf="formProduct.get('price')?.errors?.required"
+            nz-typography
+            nzType="danger"
+            >Nhập giá sản phẩm</span
+          >
+          <span
+            *ngIf="formProduct.get('price')?.errors?.min"
+            nz-typography
+            nzType="danger"
+            >Giá sản phẩm lớn hơn 0</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="color">Màu sắc sản phẩm</label>
+        <input
+          nz-input
+          type="text"
+          formControlName="color"
+          [nzStatus]="
+            formProduct.get('color')?.invalid &&
+            (formProduct.get('color')?.dirty ||
+              formProduct.get('color')?.touched)
+              ? 'error'
+              : ''
+          "
+        />
+        <ng-container
+          *ngIf="
+            formProduct.get('color') &&
+            formProduct.get('color')?.invalid &&
+            (formProduct.get('color')?.dirty ||
+              formProduct.get('color')?.touched)
+          "
+        >
+          <span
+            *ngIf="formProduct.get('color')?.errors?.required"
+            nz-typography
+            nzType="danger"
+            >Vui lòng nhập màu sắc sản phẩm</span
+          >
+          <span
+            *ngIf="
+              formProduct.get('color')?.errors?.minlength ||
+              formProduct.get('color')?.errors?.maxlength
+            "
+            nz-typography
+            nzType="danger"
+            >Màu sắc sản phẩm từ 2-225 ký tự</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="size">Kích cỡ sản phẩm</label>
+        <input
+          nz-input
+          type="text"
+          formControlName="size"
+          [nzStatus]="
+            formProduct.get('size')?.invalid &&
+            (formProduct.get('size')?.dirty || formProduct.get('size')?.touched)
+              ? 'error'
+              : ''
+          "
+        />
+        <ng-container
+          *ngIf="
+            formProduct.get('size') &&
+            formProduct.get('size')?.invalid &&
+            (formProduct.get('size')?.dirty || formProduct.get('size')?.touched)
+          "
+        >
+          <span
+            *ngIf="formProduct.get('size')?.errors?.required"
+            nz-typography
+            nzType="danger"
+            >Vui lòng nhập kích cỡ sản phẩm</span
+          >
+          <span
+            *ngIf="
+              formProduct.get('size')?.errors?.minlength ||
+              formProduct.get('size')?.errors?.maxlength
+            "
+            nz-typography
+            nzType="danger"
+            >Kích thước sản phẩm từ 2-225 ký tự</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="description">Dia chi</label>
+        <input nz-input type="text" formControlName="description" />
+        <ng-container
+          *ngIf="
+            formProduct.get('description') &&
+            formProduct.get('description')?.invalid &&
+            (formProduct.get('description')?.dirty ||
+              formProduct.get('description')?.touched)
+          "
+        >
+          <span
+            *ngIf="formProduct.get('description')?.errors?.maxlength"
+            nz-typography
+            nzType="danger"
+            >Mô tả sản phẩm tối đa 225 ký tự</span
+          >
+        </ng-container>
+      </div>
+      <div>
+        <label for="category">Danh mục</label>
+        <nz-select
+          nzPlaceHolder="Tìm kiếm danh mục"
+          nzAllowClear
+          nzShowSearch
+          nzServerSearch
+          formControlName="category"
+          (nzOnSearch)="searchCategory($event)"
+        >
+          <ng-container *ngFor="let o of categories">
+            <nz-option [nzValue]="o" [nzLabel]="o.name"></nz-option>
+          </ng-container>
+        </nz-select>
+      </div>
+      <div>
+        <label for="">Trạng thái</label> <br />
+        <nz-select formControlName="status">
+          <nz-option nzValue="1" nzLabel="Hoạt động"></nz-option>
+          <nz-option nzValue="0" nzLabel="Không hoạt động"></nz-option>
+        </nz-select>
+      </div>
+      <div>
+        <label for="">Ảnh</label> <br />
+        <input
+          type="file"
+          name="image"
+          id="image"
+          (change)="onChangeImage($event)"
+        />
+
+        <img [src]="urlImg" alt="" width="100" />
+      </div>
+    </form>
+  </ng-container>
+</nz-modal>
