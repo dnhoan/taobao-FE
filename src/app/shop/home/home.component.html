@@ -1,1 +1,58 @@
-<p>home works!</p>
+<div class="product-list mt-5">
+  <ul class="row">
+    <li class="col-lg-4 col-md-6 col-sm-12" *ngFor="let product of products">
+      <div class="product-box mt-4">
+        <div class="producct-img">
+          <img
+            [src]="baseUrl + '/image/' + product.image"
+            width="500px"
+            class="card-img-top"
+            alt="..."
+          />
+        </div>
+        <div class="product-caption">
+          <h5 style="height: 80px">
+            <a href="">{{ product.name }}</a>
+          </h5>
+          <div class="price">
+            <p class="card-text text-danger text-uppercase fs-3 fw-bolder">
+              {{ product.price + " VNĐ" }}
+            </p>
+          </div>
+          <button
+            class="mt-2"
+            nz-button
+            nzType="primary"
+            (click)="addToCart(product)"
+          >
+            Thêm giỏ hàng
+          </button>
+          <!-- <a href="/assignment_java_5/shop/cart/add?product_id=${product.id }&quantity=1" class="btn btn-outline-primary">Mua ngay</a> -->
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- <div style="display: flex; justify-content: space-between" *ngIf="products">
+  <div *ngFor="let product of products">
+    <div class="card" style="width: 18rem">
+      <img
+        [src]="baseUrl + '/image/' + product.image"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <p class="card-text">
+          {{ product.name }}
+        </p>
+        <br />
+        <p class="card-text">
+          {{ product.price + " VNĐ" }}
+        </p>
+        <button class="btn btn-primary" (click)="addToCart(product)">
+          Thêm giỏ hàng
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->

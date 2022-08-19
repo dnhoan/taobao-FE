@@ -9,6 +9,8 @@ import { UserDetailComponent } from './pages/users/user-detail/user-detail.compo
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { ProductDetailComponent } from './pages/products/product-detail/product-detail.component';
 import { ProductsComponent } from './pages/products/products.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { OrderDetailAdminComponent } from './pages/orders/order-detail-admin/order-detail-admin.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { ProductsComponent } from './pages/products/products.component';
     CategoriesComponent,
     ProductsComponent,
     ProductDetailComponent,
+    OrdersComponent,
+    OrderDetailAdminComponent
   ],
   imports: [AdminRoutingModule, SharedModule, CommonModule],
 })

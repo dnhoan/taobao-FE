@@ -6,7 +6,6 @@ import { UserDTO } from '../interfaces/UserDto.interface';
   providedIn: 'root',
 })
 export class UserAuthService {
-  // $currentUser = new Subject<any>();
-  currentUser!: UserDTO;
+  currentUser!: UserDTO | undefined;
   constructor() {}
 }

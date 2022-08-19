@@ -47,8 +47,8 @@ export class UsersComponent implements OnInit {
 
   removeUser(id: number, index: number) {
     this.modal.create({
-      nzTitle: 'Xac nhan xoa',
-      nzContent: 'Ban co thuc su muon xoa nguoi dung nay khong',
+      nzTitle: 'Xác nhận xóa',
+      nzContent: 'Bạn có muốn xóa người dùng này không?',
       nzOnOk: () => {
         this.usersService.deleteUser(id).subscribe((res: any) => {
           if (res.statusCode === StatusResponse.OK) {
@@ -63,9 +63,5 @@ export class UsersComponent implements OnInit {
         this.message.info('cancel');
       },
     });
-  }
-  cancel() {}
-  confirm() {
-    console.log('confirm');
   }
 }

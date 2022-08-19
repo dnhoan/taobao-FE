@@ -1,1 +1,138 @@
-<router-outlet></router-outlet>
+<div class="container">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container-fluid d-flex">
+        <a class="navbar-brand" routerLink="/shop">
+          <img
+            src="https://laforce.vn/wp-content/uploads/2018/05/logo.png"
+            alt=""
+            width="100"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/assignment_java_5/shop/products"
+                >Nam</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/assignment_java_5/shop/products"
+                >Nữ</a
+              >
+            </li>
+            <li class="nav-item" *ngIf="userAuthService.currentUser">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                routerLink="/shop/cart"
+                *ngIf="userAuthService.currentUser"
+              >
+                Giỏ hàng
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Tài khoản
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    routerLink="/auth/login"
+                    *ngIf="!userAuthService.currentUser"
+                    >Đăng nhập</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    routerLink="/auth/register"
+                    *ngIf="!userAuthService.currentUser"
+                    >Đăng ký</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    routerLink="/shop/orders"
+                    *ngIf="userAuthService.currentUser"
+                    >Đơn hàng</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href=""
+                    *ngIf="userAuthService.currentUser"
+                    >Cá nhân</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href=""
+                    *ngIf="userAuthService.currentUser"
+                    >Đổi mật khẩu</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    (click)="logout()"
+                    *ngIf="userAuthService.currentUser"
+                    >Đăng xuất</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <form
+            class="d-flex"
+            method="get"
+            action="/assignment_java_5/shop/products"
+          >
+            <input
+              class="form-control me-2"
+              type="search"
+              name="name"
+              placeholder="Tìm kiếm sản phẩm"
+              aria-label="Search"
+              required
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+</div>

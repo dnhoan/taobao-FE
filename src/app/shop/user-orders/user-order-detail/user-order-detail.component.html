@@ -1,0 +1,79 @@
+<button nz-button [nzType]="'primary'" (click)="showModal()">
+  <span>{{ order.orderId }}</span>
+</button>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Chi tiêt đơn hàng"
+  [nzFooter]="modalFooter"
+  nzWidth="90%"
+>
+  <ng-container *nzModalContent>
+    <div>
+      <ng-container *ngIf="order.orderDetailDTOS">
+        <nz-table
+          #basicTable
+          [nzData]="order.orderDetailDTOS"
+          [nzShowPagination]="false"
+        >
+          <thead>
+            <tr>
+              <th>Anh</th>
+              <th>Name</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th>Màu sắc</th>
+              <th>Kích thước</th>
+              <th>Danh mục</th>
+              <th>Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let orderDetail of basicTable.data; index as i">
+              <td>
+                <img
+                  [src]="baseUrl + '/image/' + orderDetail.product.image"
+                  alt=""
+                  width="50"
+                />
+              </td>
+              <td>{{ orderDetail.product.name }}</td>
+              <td>{{ orderDetail.product.price | number }}</td>
+              <td>{{ orderDetail.amount }}</td>
+              <td>{{ orderDetail.product.color }}</td>
+              <td>{{ orderDetail.product.size }}</td>
+              <td>{{ orderDetail.product.category.name }}</td>
+              <td>
+                {{ orderDetail.product.price * orderDetail.amount | number }}
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </div>
+    <div class="row">
+      <h3 style="display: flex; justify-content: end; margin: 20px 0px">
+        Tổng tiền: {{ order.totalMoney | number }}
+      </h3>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <h4 class="mb-3">Thông tin khách hàng</h4>
+        <p><b>Họ tên: </b>{{ order.user.fullname }}</p>
+        <p><b>Email: </b>{{ order.user.email }}</p>
+        <p><b>Số điện thoại: </b>{{ order.user.phoneNumber }}</p>
+        <p><b>Địa chỉ: </b>{{ order.user.address }}</p>
+      </div>
+      <div class="col-6">
+        <h4 class="mb-3">Thông tin đơn hàng</h4>
+        <p><b>Số điện thoại: </b>{{ order.phoneNumber }}</p>
+        <p><b>Địa chỉ: </b>{{ order.deliveryAddress }}</p>
+        <p><b>Ghi chú: </b>{{ order.note }}</p>
+        <p><b>Tạo lúc: </b> {{ order.ctime | date: "hh:mm dd/MM/yyyy" }}</p>
+        <p><b>Cập nhật lúc: </b>{{ order.mtime | date: "hh:mm dd/MM/yyyy" }}</p>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #modalFooter>
+    <button nz-button nzType="primary" (click)="handleOk()">Đóng</button>
+  </ng-template>
+</nz-modal>

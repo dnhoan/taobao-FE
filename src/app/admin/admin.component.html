@@ -19,15 +19,13 @@
           <li nz-menu-item><a routerLink="/admin/orders">Đơn hàng</a></li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Team" nzIcon="team">
+    </ul>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-submenu nzTitle="Tài khoản" nzIcon="user">
         <ul>
-          <li nz-menu-item>Team 1</li>
-          <li nz-menu-item>Team 2</li>
+          <li nz-menu-item><a routerLink="/">Cá nhân</a></li>
+          <li nz-menu-item><a (click)="logout()">Đăng xuất</a></li>
         </ul>
-      </li>
-      <li nz-menu-item>
-        <i nz-icon nzType="file"></i>
-        <span>File</span>
       </li>
     </ul>
   </nz-sider>
